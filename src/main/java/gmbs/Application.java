@@ -1,8 +1,11 @@
 package gmbs;
 
+import gmbs.game.NumberBaseballGame;
+
 public class Application {
 
     public static void main(String[] args) {
-        // TODO : 기능 구현
+        NumberBaseballGame game = new NumberBaseballGame();
+        game.play();
     }
 }
