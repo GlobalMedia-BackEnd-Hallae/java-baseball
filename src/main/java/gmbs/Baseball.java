@@ -46,6 +46,9 @@ public class Baseball {
     }
 
     public void setInputNumbers() {
+        if (!inputNumbers.isEmpty()) {
+            inputNumbers.clear();
+        }
         inputNumbers.addAll(userInput.getNumbers());
     }
 
