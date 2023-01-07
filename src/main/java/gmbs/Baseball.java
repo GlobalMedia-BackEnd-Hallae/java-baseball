@@ -46,6 +46,7 @@ public class Baseball {
     }
 
     public void setInputNumbers() {
+        Display.numberInputDisplay(Constant.inputLength);
         if (!inputNumbers.isEmpty()) {
             inputNumbers.clear();
         }

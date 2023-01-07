@@ -47,7 +47,6 @@ public class UserInput {
     }
 
     public ArrayList<Integer> getNumbers() {
-        Display.numberInputDisplay(Constant.inputLength);
         ArrayList<Integer> returnNumbers = new ArrayList<>();
         String tempStringInput = getInput();
         while (!isValidNumberInput(tempStringInput, Constant.inputLength)) {
