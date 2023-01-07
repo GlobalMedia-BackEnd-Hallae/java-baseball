@@ -10,12 +10,6 @@ public class Baseball {
     private int strikes;
     private int balls;
 
-    Baseball() {
-        for (int i = 0; i < Constant.inputLength; i++) {
-            inputNumbers.add(null);
-        }
-    }
-
     public int getStrikes() {
         return strikes;
     }
@@ -52,12 +46,7 @@ public class Baseball {
     }
 
     public void setInputNumbers() {
-        int dividend;
-        dividend = userInput.getNumber();
-        for (int i = Constant.inputLength - 1; i >= 0; i--) {
-            inputNumbers.set(i, dividend % 10);
-            dividend /= 10;
-        }
+        inputNumbers.addAll(userInput.getNumbers());
     }
 
     private void check() {
@@ -71,9 +60,7 @@ public class Baseball {
     }
 
     private void resetAll() {
-        for (int i = 0; i < Constant.inputLength; i++) {
-            inputNumbers.set(i, null);
-        }
+        inputNumbers.clear();
         randomNumbers.clear();
         resetStrikes();
         resetBalls();

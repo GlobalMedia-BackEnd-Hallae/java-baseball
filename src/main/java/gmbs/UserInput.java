@@ -1,24 +1,24 @@
 package gmbs;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.Arrays;
+
+import java.util.*;
 
 public class UserInput {
     private static final String YES_VALUE = "1";
     private static final String NO_VALUE = "2";
-    private static final int inputLength = Constant.inputLength;
+    private final Scanner scan = new Scanner(System.in);
+
+
     public boolean isInt(String input) {
         try {
             Integer.parseInt(input);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
         return true;
     }
 
     public boolean isValidLength(String input, int length) {
-        return input.length()==length;
+        return input.length() == length;
     }
 
     public boolean isNoOverlap(String input) {
@@ -27,7 +27,7 @@ public class UserInput {
     }
 
     public boolean isValidNumberInput(String input, int length) {
-        return isInt(input) && isValidLength(input,length) && isNoOverlap(input);
+        return isInt(input) && isValidLength(input, length) && isNoOverlap(input);
     }
 
     public boolean isYes(String input) {
@@ -42,28 +42,32 @@ public class UserInput {
         return !isYes(input) && !isNo(input);
     }
 
-    private String getStringInput() {
-        Scanner scan = new Scanner(System.in);
+    private String getInput() {
         return scan.nextLine();
     }
 
-    public int getNumber() {
-        Display.numberInputDisplay(inputLength);
-        String tempStringInput = getStringInput();
-        while(!isValidNumberInput(tempStringInput,inputLength)) {
+    public ArrayList<Integer> getNumbers() {
+        Display.numberInputDisplay(Constant.inputLength);
+        ArrayList<Integer> returnNumbers = new ArrayList<>();
+        String tempStringInput = getInput();
+        while (!isValidNumberInput(tempStringInput, Constant.inputLength)) {
             Display.wrongInputDisplay();
-            tempStringInput = getStringInput();
+            tempStringInput = getInput();
         }
-        return Integer.parseInt(tempStringInput);
+        String[] temp = tempStringInput.split("");
+        for (int i = 0; i < Constant.inputLength; i++) {
+            returnNumbers.add(Integer.parseInt(temp[i]));
+        }
+        return returnNumbers;
     }
 
 
     public boolean getYesNo() {
         Display.playAgainDisplay(YES_VALUE, NO_VALUE);
-        String userInput = getStringInput();
+        String userInput = getInput();
         while (isWrongInput(userInput)) {
             Display.wrongInputDisplay();
-            userInput = getStringInput();
+            userInput = getInput();
         }
         return isYes(userInput);
     }
