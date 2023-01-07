@@ -1,23 +1,21 @@
 package gmbs;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Baseball {
-    private final ArrayList<Integer> inputNumberList = new ArrayList<>();
-    private final ArrayList<Integer> randomNumberList = new ArrayList<>();
+    private final ArrayList<Integer> inputNumbers = new ArrayList<>();
+    private final ArrayList<Integer> randomNumbers = new ArrayList<>();
     private final UserInput userInput = new UserInput();
+    private final RandomNumberGenerator random = new RandomNumberGenerator();
     private int strikes;
     private int balls;
 
     Baseball() {
-        for(int i = 0; i < Constant.inputLength; i++) {
-            inputNumberList.add(null);
-            randomNumberList.add(null);
+        for (int i = 0; i < Constant.inputLength; i++) {
+            inputNumbers.add(null);
         }
-        resetBalls();
-        resetStrikes();
     }
+
     public int getStrikes() {
         return strikes;
     }
@@ -27,11 +25,11 @@ public class Baseball {
     }
 
     public void addStrikes() {
-        strikes ++;
+        strikes++;
     }
 
     public void addBalls() {
-        balls ++;
+        balls++;
     }
 
     public void resetStrikes() {
@@ -43,53 +41,40 @@ public class Baseball {
     }
 
 
-    public void setRandomNumberList() {
-        Random random = new Random();
-        int tempRandomNumber = random.nextInt(9);
-        for(int i = 0; i < Constant.inputLength; i++) {
-            if(i == 0) {
-                randomNumberList.set(i, random.nextInt(8)+1);
-            }
-            else {
-                while(randomNumberList.contains(tempRandomNumber)) {
-                    tempRandomNumber = random.nextInt(9);
-                }
-                randomNumberList.set(i, tempRandomNumber);
-            }
+    public void setRandomNumbers() {
+        randomNumbers.addAll(random.getRandomNumbers(3));
+    }
+
+    public void showRandomNumbers() {
+        for (int i = 0; i < Constant.inputLength; i++) {
+            System.out.println(randomNumbers.get(i));
         }
     }
 
-    public void showRandomNumberList() {
-        for(int i = 0; i < Constant.inputLength; i++) {
-            System.out.println(randomNumberList.get(i));
-        }
-    }
-
-    public void setInputNumberList() {
+    public void setInputNumbers() {
         int dividend;
         dividend = userInput.getNumber();
-        for(int i = Constant.inputLength -1; i >= 0; i--) {
-            inputNumberList.set(i,dividend%10);
+        for (int i = Constant.inputLength - 1; i >= 0; i--) {
+            inputNumbers.set(i, dividend % 10);
             dividend /= 10;
         }
     }
 
     private void check() {
-        for(int i = 0; i < Constant.inputLength; i++) {
-            if(inputNumberList.get(i).equals(randomNumberList.get(i))) {
+        for (int i = 0; i < Constant.inputLength; i++) {
+            if (inputNumbers.get(i).equals(randomNumbers.get(i))) {
                 addStrikes();
-            }
-            else if(randomNumberList.contains(inputNumberList.get(i))) {
+            } else if (randomNumbers.contains(inputNumbers.get(i))) {
                 addBalls();
             }
         }
     }
 
     private void resetAll() {
-        for(int i = 0; i < Constant.inputLength; i++) {
-            inputNumberList.set(i,null);
-            randomNumberList.set(i,null);
+        for (int i = 0; i < Constant.inputLength; i++) {
+            inputNumbers.set(i, null);
         }
+        randomNumbers.clear();
         resetStrikes();
         resetBalls();
     }
@@ -101,16 +86,13 @@ public class Baseball {
 
     public void playOneGame() {
         resetAll();
-        setRandomNumberList();
-        showRandomNumberList();
-        while(true) {
-            setInputNumberList();
-            check();
-            Display.countsDisplay(getStrikes(),getBalls());
-            if(strikes==Constant.MAX_STRIKES) {
-                break;
-            }
+        setRandomNumbers();
+        showRandomNumbers();
+        while (strikes < Constant.MAX_STRIKES) {
             resetCounts();
+            setInputNumbers();
+            check();
+            Display.countsDisplay(getStrikes(), getBalls());
         }
     }
 
