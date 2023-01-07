@@ -19,7 +19,6 @@ public class RandomNumberGenerator {
             } while (tempNumbers.contains(tempRandomDigit));
             tempNumbers.add(tempRandomDigit);
         }
-        System.out.println(tempNumbers);
         return tempNumbers;
     }
 }

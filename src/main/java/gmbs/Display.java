@@ -1,5 +1,4 @@
 package gmbs;
-import gmbs.Constant;
 
 public class Display {
     public static void playAgainDisplay(String yes, String no) {
