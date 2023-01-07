@@ -15,115 +15,151 @@ public class Application {
      */
 
     private static final String EXPRESSION_DELIMETER = "";
-    public static final int NUMBERLENGTH = 3;
+    public static final int NUMBER_LENGTH = 3;
+    public static final int NUMBER_RANGE = 9;
+    public static final int ASCII_CODE_OF_ZERO = '0';
     public static final int NOT_EXIST = -1;
     public static final int BALL = 0;
     public static final int STRIKE = 1;
+    public static final int CONTINUE = 1;
+    public static final int END = 2;
 
-    static int rightInput = 0;
-    static int recursion = 1;
-    static int answer = 0;
-    static String randomNumber;
-    static String userNumber;
-    static int ballCount;
-    static int strikeCount;
+    // static Scanner scanner = new Scanner(System.in);
 
-    public static int checkInput() {
-        if (userNumber.length() != NUMBERLENGTH) {
-            throw new IllegalStateException("3개의 수를 입력해주세요.");
+    // 수의 중복 여부를 판별하는 함수
+    public static boolean checkNumberOverlap(String Number) {
+        if ((Number.charAt(0) == Number.charAt(1)) || (Number.charAt(0) == Number.charAt(2)) || (Number.charAt(1) == Number.charAt(2))) {
+            return true;
         }
 
-        if ((userNumber.charAt(0) == userNumber.charAt(1)) || (userNumber.charAt(0) == userNumber.charAt(2)) || (userNumber.charAt(1) == userNumber.charAt(2))) {
-            throw new IllegalStateException("서로 다른 임의의 수 3개를 입력해주세요.");
-        }
-
-        return rightInput = 1;
+        return false;
     }
 
-    public static void inputNumber() {
-        while(rightInput == 0) {
+    // 사용자가 입력한 수가 잘못된 수인지 판별하는 함수
+    public static void checkInput(String userNumber) {
+        if ((userNumber.length() != NUMBER_LENGTH) || checkNumberOverlap(userNumber)) {
+            throw new IllegalStateException();
+        }
+    }
+
+    // 수를 입력받는 함수
+    public static String inputNumber(String userNumber) {
+        try {
             System.out.print("숫자를 입력해주세요 : ");
             Scanner scanner = new Scanner(System.in);
             userNumber = scanner.nextLine();
-            checkInput();
+            checkInput(userNumber);
+            return userNumber;
+        } catch (IllegalStateException error) {
+            System.out.println("잘못된 수를 입력하셨습니다.");
+            return inputNumber(userNumber);
         }
-        rightInput = 0;
     }
 
-    public static String checkOverlap(String createdNumber, int index) {
-        if (index == 0) {
+    // 컴퓨터가 생성한 숫자가 조건에 맞는 지 판별해주는 함수
+    public static String checkRandomNumber(String createdNumber) {
+        if (createdNumber.length() != NUMBER_LENGTH) {
             return createdNumber;
         }
 
-        if (createdNumber.charAt(index - 1) == createdNumber.charAt(index)) {
-            return createdNumber.substring(0, index);
+        if (checkNumberOverlap(createdNumber)) {
+            return EXPRESSION_DELIMETER;
         }
 
         return createdNumber;
     }
 
+    // 컴퓨터의 숫자를 생성해주는 함수
     public static String createRandomNumber() {
         Random random = new Random();
         String createdNumber = EXPRESSION_DELIMETER;
 
-        while (createdNumber.length() < NUMBERLENGTH) {
-            createdNumber += Integer.toString((random.nextInt(8) + 1));
-            createdNumber = checkOverlap(createdNumber, createdNumber.length() - 1);
+        while (createdNumber.length() < NUMBER_LENGTH) {
+            createdNumber += Integer.toString((random.nextInt(NUMBER_RANGE) + 1));
+            createdNumber = checkRandomNumber(createdNumber);
         }
 
         return createdNumber;
     }
 
-    // 중복 수정 필요
-    public static int compareNumber(int index) {
+    // Strike 여부를 판별해주는 함수
+    public static boolean resultIsStrike(String randomNumber, String userNumber, int index) {
         if ((randomNumber.charAt(0) == userNumber.charAt(index)) && index == 0) {
-            return STRIKE;
-        }
-
-        if ((randomNumber.charAt(0) == userNumber.charAt(index))) {
-            return BALL;
+            return true;
         }
 
         if (randomNumber.charAt(1) == userNumber.charAt(index) && index == 1){
-            return STRIKE;
-        }
-
-        if ((randomNumber.charAt(1) == userNumber.charAt(index))) {
-            return BALL;
+            return true;
         }
 
         if (randomNumber.charAt(2) == userNumber.charAt(index) && index == 2){
-            return STRIKE;
+            return true;
+        }
+
+        return false;
+    }
+
+    // Ball 여부를 판별해주는 함수
+    public static boolean resultIsBall(String randomNumber, String userNumber, int index) {
+        if ((randomNumber.charAt(0) == userNumber.charAt(index))) {
+            return true;
+        }
+
+        if ((randomNumber.charAt(1) == userNumber.charAt(index))) {
+            return true;
         }
 
         if ((randomNumber.charAt(2) == userNumber.charAt(index))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // 수를 비교해주는 함수
+    public static int compareNumber(String randomNumber, String userNumber, int index) {
+        if (resultIsStrike(randomNumber, userNumber, index)) {
+            return STRIKE;
+        }
+
+        if (resultIsBall(randomNumber, userNumber, index)) {
             return BALL;
         }
 
         return NOT_EXIST;
     }
 
-    public static void applyResult(int result) {
-        if (result == 0) {
-            ballCount++;
+
+    public static int checkBall(int result) {
+        if (result == BALL) {
+            return 1;
         }
 
-        if (result == 1) {
-            strikeCount++;
-        }
+        return 0;
     }
 
-    public static void checkResult() {
-        ballCount = 0;
-        strikeCount = 0;
-        int resultOfIndex;
-
-        for (int i = 0; i < 3; i++) {
-            applyResult(compareNumber(i));
+    public static int checkStrike(int result) {
+        if (result == STRIKE) {
+            return 1;
         }
+
+        return 0;
     }
 
-    public static void output() {
+    public static String checkResult(String randomNumber, String userNumber, int ballCount, int strikeCount) {
+        for (int index = 0; index < NUMBER_LENGTH; index++) {
+            int result = compareNumber(randomNumber, userNumber, index);
+            ballCount += checkBall(result);
+            strikeCount += checkStrike(result);
+        }
+
+        return Integer.toString(ballCount) + Integer.toString(strikeCount);
+    }
+
+    public static int output(String resultCount) {
+        int ballCount =  resultCount.charAt(0) - ASCII_CODE_OF_ZERO;
+        int strikeCount =  resultCount.charAt(1) - ASCII_CODE_OF_ZERO;
+
         if (ballCount == 0 && strikeCount == 0) {
             System.out.println("낫싱");
         }
@@ -151,7 +187,7 @@ public class Application {
         else if (ballCount == 0 && strikeCount == 3) {
             System.out.println("3스트라이크");
             System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            answer = 1;
+            return END;
         }
 
         else if (ballCount == 1 && strikeCount == 1) {
@@ -161,30 +197,41 @@ public class Application {
         else if (ballCount == 2 && strikeCount == 1) {
             System.out.println("2볼 1스트라이크");
         }
+
+        return CONTINUE;
     }
 
-    public static void numberBaseBall() {
-        while(answer == 0) {
-            inputNumber();
-            checkResult();
-            output();
+    public static void numberBaseBall(String randomNumber) {
+        int answer = CONTINUE;
+        String userNumber = EXPRESSION_DELIMETER;
+        String resultCount;
+        int ballCount = 0;
+        int strikeCount = 0;
+
+        while(answer == CONTINUE) {
+            userNumber = inputNumber(userNumber);
+            resultCount = checkResult(randomNumber, userNumber, ballCount, strikeCount);
+            answer = output(resultCount);
         }
     }
 
-    public static void returnGame() {
+    public static int returnGame() {
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
         Scanner scanner = new Scanner(System.in);
-        recursion = scanner.nextInt();
-        answer = 0;
-        rightInput = 0;
+        return scanner.nextInt();
     }
 
     public static void main(String[] args) {
         // TODO : 기능 구현
-        while(recursion == 1) {
+
+        int recursion = CONTINUE;
+        String randomNumber;
+
+        while(recursion == CONTINUE) {
             randomNumber = createRandomNumber();
-            numberBaseBall();
-            returnGame();
+            System.out.println(randomNumber);
+            numberBaseBall(randomNumber);
+            recursion = returnGame();
         }
     }
 }
