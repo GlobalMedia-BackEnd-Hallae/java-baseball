@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 public class InputConsoleImpl implements InputConsole {
 
     private static final String BLANK = " ";
-    private static final long MAX_INPUT_COUNT = 3;
 
     private final Scanner scanner;
     private String[] inputNumber;
@@ -48,7 +47,7 @@ public class InputConsoleImpl implements InputConsole {
     }
 
     private void checkDistinct() throws IllegalArgumentException {
-        if (Arrays.stream(inputNumber).distinct().count() != MAX_INPUT_COUNT) {
+        if (Arrays.stream(inputNumber).distinct().count() != Constant.MAX_BALL_COUNT) {
             throw new IllegalArgumentException("입력값에 중복된 값이 있습니다. 다시 입력하세요");
         }
     }

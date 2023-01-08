@@ -5,10 +5,11 @@ import gmbs.model.dto.BallCountDto;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static gmbs.common.Constant.*;
+
 public class BaseballRuleChecker {
 
     private static final int START_INDEX = 0;
-    private static final int MAX_BALL_COUNT = 3;
 
     private final List<Integer> computerRandomBall;
 
