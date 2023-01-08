@@ -7,7 +7,7 @@ public class RandomNumberGenerator {
     private final Random random = new Random();
 
     public int getRandomDigit() {
-        return random.nextInt(8) + 1;
+        return random.nextInt(9) + 1;
     }
 
     public ArrayList<Integer> getRandomNumbers(int length) {
