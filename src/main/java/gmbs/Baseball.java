@@ -6,6 +6,7 @@ import java.util.List;
 public class Baseball {
     private final UserInput userInput = new UserInput();
     private final RandomNumberGenerator random = new RandomNumberGenerator();
+    private final Display display = new Display();
 
     public void showRandomNumbers(List<Integer> randomNumbers) {
         System.out.println(randomNumbers);
@@ -44,7 +45,7 @@ public class Baseball {
             List<Integer> inputNumbers = new ArrayList<>(userInput.getNumbers());
             strikes = strikeCount(randomNumbers, inputNumbers);
             balls = ballCount(randomNumbers, inputNumbers);
-            Display.showStrikeBallCounts(strikes, balls);
+            display.showStrikeBallCounts(strikes, balls);
         } while (!isStrikeOut(strikes));
     }
 

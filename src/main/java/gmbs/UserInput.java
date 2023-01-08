@@ -9,6 +9,7 @@ public class UserInput {
     private static final String QUIT_VALUE = "2";
     private final Scanner scan = new Scanner(System.in);
     private final InputValidator validator = new InputValidator();
+    private final Display display = new Display();
 
 
 
@@ -18,9 +19,10 @@ public class UserInput {
 
     public List<Integer> getNumbers() {
         ArrayList<Integer> returnNumbers = new ArrayList<>();
+        display.showNumberInputDisplay(Constant.inputLength);
         String tempStringInput = getInput();
         while (!validator.isValidNumberInput(tempStringInput, Constant.inputLength)) {
-            Display.showWrongInputDisplay();
+            display.showWrongInputDisplay();
             tempStringInput = getInput();
         }
         String[] temp = tempStringInput.split("");
@@ -31,10 +33,10 @@ public class UserInput {
     }
 
     public boolean checkReplay() {
-        Display.showPlayAgain(REPLAY_VALUE, QUIT_VALUE);
+        display.showPlayAgain(REPLAY_VALUE, QUIT_VALUE);
         String userInput = getInput();
         while (validator.isNeither(REPLAY_VALUE, QUIT_VALUE, userInput)) {
-            Display.showWrongInputDisplay();
+            display.showWrongInputDisplay();
             userInput = getInput();
         }
         return userInput.equals(REPLAY_VALUE);
