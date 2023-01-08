@@ -8,13 +8,15 @@ public class UserInput {
     private final Scanner scan = new Scanner(System.in);
 
 
-    public boolean isInt(String input) {
+    public boolean isNaturalNumber(String input) {
         try {
-            Integer.parseInt(input);
+            if (Integer.parseInt(input) > 0) {
+                return true;
+            }
         } catch (Exception e) {
             return false;
         }
-        return true;
+        return false;
     }
 
     public boolean isValidLength(String input, int length) {
@@ -27,7 +29,7 @@ public class UserInput {
     }
 
     public boolean isValidNumberInput(String input, int length) {
-        return isInt(input) && isValidLength(input, length) && isNoOverlap(input);
+        return isNaturalNumber(input) && isValidLength(input, length) && isNoOverlap(input);
     }
 
     public boolean isYes(String input) {
@@ -46,7 +48,7 @@ public class UserInput {
         return scan.nextLine();
     }
 
-    public ArrayList<Integer> getNumbers() {
+    public List<Integer> getNumbers() {
         ArrayList<Integer> returnNumbers = new ArrayList<>();
         String tempStringInput = getInput();
         while (!isValidNumberInput(tempStringInput, Constant.inputLength)) {
