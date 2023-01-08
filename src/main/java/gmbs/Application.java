@@ -14,16 +14,6 @@ public class Application {
     4. 게임이 끝난 경우 재시작/종료 여부를 입력 받아 1번 부터 반복할 지의 여부를 결정하는 함수
      */
 
-    private static final String EXPRESSION_DELIMETER = "";
-    public static final int NUMBER_LENGTH = 3;
-    public static final int NUMBER_RANGE = 9;
-    public static final int ASCII_CODE_OF_ZERO = '0';
-    public static final int NOT_EXIST = -1;
-    public static final int BALL = 0;
-    public static final int STRIKE = 1;
-    public static final int CONTINUE = 1;
-    public static final int END = 2;
-
     // static Scanner scanner = new Scanner(System.in);
 
     // 수의 중복 여부를 판별하는 함수
@@ -37,7 +27,7 @@ public class Application {
 
     // 사용자가 입력한 수가 잘못된 수인지 판별하는 함수
     public static void checkInput(String userNumber) {
-        if ((userNumber.length() != NUMBER_LENGTH) || checkNumberOverlap(userNumber)) {
+        if ((userNumber.length() != Constant.NUMBER_LENGTH) || checkNumberOverlap(userNumber)) {
             throw new IllegalStateException();
         }
     }
@@ -58,12 +48,12 @@ public class Application {
 
     // 컴퓨터가 생성한 숫자가 조건에 맞는 지 판별해주는 함수
     public static String checkRandomNumber(String createdNumber) {
-        if (createdNumber.length() != NUMBER_LENGTH) {
+        if (createdNumber.length() != Constant.NUMBER_LENGTH) {
             return createdNumber;
         }
 
         if (checkNumberOverlap(createdNumber)) {
-            return EXPRESSION_DELIMETER;
+            return Constant.EXPRESSION_DELIMETER;
         }
 
         return createdNumber;
@@ -72,10 +62,10 @@ public class Application {
     // 컴퓨터의 숫자를 생성해주는 함수
     public static String createRandomNumber() {
         Random random = new Random();
-        String createdNumber = EXPRESSION_DELIMETER;
+        String createdNumber = Constant.EXPRESSION_DELIMETER;
 
-        while (createdNumber.length() < NUMBER_LENGTH) {
-            createdNumber += Integer.toString((random.nextInt(NUMBER_RANGE) + 1));
+        while (createdNumber.length() < Constant.NUMBER_LENGTH) {
+            createdNumber += Integer.toString((random.nextInt(Constant.NUMBER_RANGE) + 1));
             createdNumber = checkRandomNumber(createdNumber);
         }
 
@@ -119,19 +109,19 @@ public class Application {
     // 수를 비교해주는 함수
     public static int compareNumber(String randomNumber, String userNumber, int index) {
         if (resultIsStrike(randomNumber, userNumber, index)) {
-            return STRIKE;
+            return Constant.STRIKE;
         }
 
         if (resultIsBall(randomNumber, userNumber, index)) {
-            return BALL;
+            return Constant.BALL;
         }
 
-        return NOT_EXIST;
+        return Constant.NOT_EXIST;
     }
 
 
     public static int checkBall(int result) {
-        if (result == BALL) {
+        if (result == Constant.BALL) {
             return 1;
         }
 
@@ -139,7 +129,7 @@ public class Application {
     }
 
     public static int checkStrike(int result) {
-        if (result == STRIKE) {
+        if (result == Constant.STRIKE) {
             return 1;
         }
 
@@ -147,7 +137,7 @@ public class Application {
     }
 
     public static String checkResult(String randomNumber, String userNumber, int ballCount, int strikeCount) {
-        for (int index = 0; index < NUMBER_LENGTH; index++) {
+        for (int index = 0; index < Constant.NUMBER_LENGTH; index++) {
             int result = compareNumber(randomNumber, userNumber, index);
             ballCount += checkBall(result);
             strikeCount += checkStrike(result);
@@ -157,8 +147,8 @@ public class Application {
     }
 
     public static int output(String resultCount) {
-        int ballCount =  resultCount.charAt(0) - ASCII_CODE_OF_ZERO;
-        int strikeCount =  resultCount.charAt(1) - ASCII_CODE_OF_ZERO;
+        int ballCount =  resultCount.charAt(0) - Constant.ASCII_CODE_OF_ZERO;
+        int strikeCount =  resultCount.charAt(1) - Constant.ASCII_CODE_OF_ZERO;
 
         if (ballCount == 0 && strikeCount == 0) {
             System.out.println("낫싱");
@@ -187,7 +177,7 @@ public class Application {
         else if (ballCount == 0 && strikeCount == 3) {
             System.out.println("3스트라이크");
             System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-            return END;
+            return Constant.END;
         }
 
         else if (ballCount == 1 && strikeCount == 1) {
@@ -198,17 +188,17 @@ public class Application {
             System.out.println("2볼 1스트라이크");
         }
 
-        return CONTINUE;
+        return Constant.CONTINUE;
     }
 
     public static void numberBaseBall(String randomNumber) {
-        int answer = CONTINUE;
-        String userNumber = EXPRESSION_DELIMETER;
+        int answer = Constant.CONTINUE;
+        String userNumber = Constant.EXPRESSION_DELIMETER;
         String resultCount;
         int ballCount = 0;
         int strikeCount = 0;
 
-        while(answer == CONTINUE) {
+        while(answer == Constant.CONTINUE) {
             userNumber = inputNumber(userNumber);
             resultCount = checkResult(randomNumber, userNumber, ballCount, strikeCount);
             answer = output(resultCount);
@@ -224,10 +214,10 @@ public class Application {
     public static void main(String[] args) {
         // TODO : 기능 구현
 
-        int recursion = CONTINUE;
+        int recursion = Constant.CONTINUE;
         String randomNumber;
 
-        while(recursion == CONTINUE) {
+        while(recursion == Constant.CONTINUE) {
             randomNumber = createRandomNumber();
             System.out.println(randomNumber);
             numberBaseBall(randomNumber);
