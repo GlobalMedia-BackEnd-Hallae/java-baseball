@@ -45,14 +45,14 @@ class BaseballRuleCheckerTest {
 
     @DisplayName("컴퓨터 생성 랜덤 숫자와 입력 숫자를 받아 게임 종료 요건을 얻는다")
     @ParameterizedTest
-    @MethodSource("setAllStrikeBaseballGameAndExpect")
+    @MethodSource("setBaseballGameAndEndExpect")
     void get(List<Integer> computerNumber, List<Integer> inputNumber, boolean expect) {
         BaseballRuleChecker ruleChecker = new BaseballRuleChecker(computerNumber);
         BallCountDto ballCount = ruleChecker.getBallCount(inputNumber);
         assertThat(ballCount.isMaxStrike()).isEqualTo(expect);
     }
 
-    private static Stream<Arguments> setAllStrikeBaseballGameAndExpect() {
+    private static Stream<Arguments> setBaseballGameAndEndExpect() {
         return Stream.of(
                 Arguments.of(COMPUTER_BALL, INPUT_ALL_STRIKE, true),
                 Arguments.of(COMPUTER_BALL, INPUT_NOTHING, false)
