@@ -3,8 +3,8 @@ package gmbs;
 import java.util.*;
 
 public class UserInput {
-    private static final String YES_VALUE = "1";
-    private static final String NO_VALUE = "2";
+    private static final String REPLAY_VALUE = "1";
+    private static final String QUIT_VALUE = "2";
     private final Scanner scan = new Scanner(System.in);
 
 
@@ -28,21 +28,8 @@ public class UserInput {
         return tempSet.size() == input.length();
     }
 
-
     public boolean isValidNumberInput(String input, int length) {
         return isNaturalNumber(input) && isValidLength(input, length) && hasNoOverlap(input);
-    }
-
-    public boolean isYes(String input) {
-        return input.equals(YES_VALUE);
-    }
-
-    public boolean isNo(String input) {
-        return input.equals(NO_VALUE);
-    }
-
-    public boolean isWrongInput(String input) {
-        return !isYes(input) && !isNo(input);
     }
 
     private String getInput() {
@@ -63,15 +50,16 @@ public class UserInput {
         return returnNumbers;
     }
 
+    public boolean isNeither(Object a, Object b, Object input) {
+        return !(input.equals(a) || input.equals(b));
+    }
 
-    public boolean getYesNo() {
-        Display.showPlayAgain(YES_VALUE, NO_VALUE);
+    public boolean checkReplay() {
         String userInput = getInput();
-        while (isWrongInput(userInput)) {
+        while (isNeither(REPLAY_VALUE, QUIT_VALUE, userInput)) {
             Display.showWrongInputDisplay();
             userInput = getInput();
         }
-        return isYes(userInput);
+        return userInput.equals(REPLAY_VALUE);
     }
-
 }

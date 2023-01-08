@@ -51,6 +51,6 @@ public class Baseball {
     public void playBall() {
         do {
             playOneGame();
-        } while (userInput.getYesNo());
+        } while (userInput.checkReplay());
     }
 }
