@@ -25,8 +25,8 @@ public class InputValidator {
     }
 
     public boolean hasNoOverlap(String input) {
-        Set<String> tempSet = new HashSet<>(Arrays.asList(input.split("")));
-        return tempSet.size() == input.length();
+        Set<String> inputChecker = new HashSet<>(Arrays.asList(input.split("")));
+        return inputChecker.size() == input.length();
     }
 
     public boolean isValidNumberInput(String input, int length) {

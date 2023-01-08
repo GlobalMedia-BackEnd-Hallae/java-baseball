@@ -12,12 +12,12 @@ public class RandomNumberGenerator {
 
     public ArrayList<Integer> getRandomNumbers(int length) {
         ArrayList<Integer> tempNumbers = new ArrayList<>();
-        int tempRandomDigit;
+        int randomDigit;
         for (int i = 0; i < length; i++) {
             do {
-                tempRandomDigit = getRandomDigit();
-            } while (tempNumbers.contains(tempRandomDigit));
-            tempNumbers.add(tempRandomDigit);
+                randomDigit = getRandomDigit();
+            } while (tempNumbers.contains(randomDigit));
+            tempNumbers.add(randomDigit);
         }
         return tempNumbers;
     }

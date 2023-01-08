@@ -20,12 +20,12 @@ public class UserInput {
     public List<Integer> getNumbers() {
         ArrayList<Integer> returnNumbers = new ArrayList<>();
         display.showNumberInputDisplay(Constant.inputLength);
-        String tempStringInput = getInput();
-        while (!validator.isValidNumberInput(tempStringInput, Constant.inputLength)) {
+        String userInput = getInput();
+        while (!validator.isValidNumberInput(userInput, Constant.inputLength)) {
             display.showWrongInputDisplay();
-            tempStringInput = getInput();
+            userInput = getInput();
         }
-        String[] temp = tempStringInput.split("");
+        String[] temp = userInput.split("");
         for (int i = 0; i < Constant.inputLength; i++) {
             returnNumbers.add(Integer.parseInt(temp[i]));
         }
