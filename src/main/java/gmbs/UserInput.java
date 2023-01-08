@@ -23,13 +23,14 @@ public class UserInput {
         return input.length() == length;
     }
 
-    public boolean isNoOverlap(String input) {
+    public boolean hasNoOverlap(String input) {
         Set<String> tempSet = new HashSet<>(Arrays.asList(input.split("")));
         return tempSet.size() == input.length();
     }
 
+
     public boolean isValidNumberInput(String input, int length) {
-        return isNaturalNumber(input) && isValidLength(input, length) && isNoOverlap(input);
+        return isNaturalNumber(input) && isValidLength(input, length) && hasNoOverlap(input);
     }
 
     public boolean isYes(String input) {
