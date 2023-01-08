@@ -4,7 +4,7 @@ import gmbs.common.Constant;
 
 import java.util.*;
 
-public class RandomNumberGenerator {
+public class RandomNumber {
 
     private static final int UNITS = 0;
 
