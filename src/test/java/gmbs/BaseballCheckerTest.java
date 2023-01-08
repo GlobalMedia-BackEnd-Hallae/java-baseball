@@ -12,14 +12,14 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-class BaseballTest {
+class BaseballCheckerTest {
+    BaseballChecker checker = new BaseballChecker();
 
     @ParameterizedTest
     @DisplayName("두 리스트에서 인덱스와 값이 모두 일치하는 요소의 개수를 반환한다")
     @MethodSource("generateStrikeData")
     void strikeCount(List<Integer> firstList, List<Integer> secondList, int expected) {
-        Baseball baseball = new Baseball();
-        assertThat(baseball.strikeCount(firstList, secondList)).isEqualTo(expected);
+        assertThat(checker.strikeCount(firstList, secondList)).isEqualTo(expected);
     }
 
     static Stream<Arguments> generateStrikeData() {
@@ -35,8 +35,7 @@ class BaseballTest {
     @DisplayName("오른쪽 리스트에서 두 리스트의 교집합 중 인덱스가 다른 요소의 수를 반환한다")
     @MethodSource("generateBallData")
     void ballCount(List<Integer> firstList, List<Integer> secondList, int expected) {
-        Baseball baseball = new Baseball();
-        assertThat(baseball.ballCount(firstList, secondList)).isEqualTo(expected);
+        assertThat(checker.ballCount(firstList, secondList)).isEqualTo(expected);
     }
 
     static Stream<Arguments> generateBallData() {
