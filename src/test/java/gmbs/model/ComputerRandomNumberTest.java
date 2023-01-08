@@ -10,6 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ComputerRandomNumberTest {
 
+    private static final int MAX_BALL_COUNT = 3;
+
     @DisplayName("중복 없는 세자리 랜덤 숫자를 생성한다")
     @Test
     void generate() {
@@ -20,7 +22,7 @@ class ComputerRandomNumberTest {
                 .distinct()
                 .collect(Collectors.toList());
 
-        assertThat(actual.size()).isEqualTo(3);
+        assertThat(actual.size()).isEqualTo(MAX_BALL_COUNT);
         for (Integer random : actual) {
             assertThat(random).isBetween(1, 9);
         }
