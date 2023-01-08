@@ -19,14 +19,14 @@ public class UserInput {
 
     public List<Integer> getNumbers() {
         ArrayList<Integer> returnNumbers = new ArrayList<>();
-        display.showNumberInputDisplay(Constant.inputLength);
+        display.showNumberInputDisplay(Constant.INPUT_LENGTH);
         String userInput = getInput();
-        while (!validator.isValidNumberInput(userInput, Constant.inputLength)) {
+        while (!validator.isValidNumberInput(userInput, Constant.INPUT_LENGTH)) {
             display.showWrongInputDisplay();
             userInput = getInput();
         }
         String[] temp = userInput.split("");
-        for (int i = 0; i < Constant.inputLength; i++) {
+        for (int i = 0; i < Constant.INPUT_LENGTH; i++) {
             returnNumbers.add(Integer.parseInt(temp[i]));
         }
         return returnNumbers;

@@ -8,10 +8,6 @@ public class Baseball {
     private final RandomNumberGenerator random = new RandomNumberGenerator();
     private final Display display = new Display();
 
-    public void showRandomNumbers(List<Integer> randomNumbers) {
-        System.out.println(randomNumbers);
-    }
-
     public int strikeCount(List<Integer> randomNumbers, List<Integer> userInput) {
         int strikeCount = 0;
         for (int i = 0; i < userInput.size(); i++) {
@@ -33,14 +29,13 @@ public class Baseball {
     }
 
     private boolean isStrikeOut(int strikeCount) {
-        return strikeCount == Constant.inputLength;
+        return strikeCount == Constant.INPUT_LENGTH;
     }
 
-    public void playOneGame() {
+    private void playOneGame() {
         int strikes;
         int balls;
-        List<Integer> randomNumbers = new ArrayList<>(random.getRandomNumbers(Constant.inputLength));
-        showRandomNumbers(randomNumbers);
+        List<Integer> randomNumbers = new ArrayList<>(random.getRandomNumbers(Constant.INPUT_LENGTH));
         do {
             List<Integer> inputNumbers = new ArrayList<>(userInput.getNumbers());
             strikes = strikeCount(randomNumbers, inputNumbers);
