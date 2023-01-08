@@ -29,7 +29,11 @@ public class InputValidator {
         return inputChecker.size() == input.length();
     }
 
+    public boolean hasNoZero(String input) {
+        return !input.contains("0");
+    }
+
     public boolean isValidNumberInput(String input, int length) {
-        return isNaturalNumber(input) && isValidLength(input, length) && hasNoOverlap(input);
+        return isNaturalNumber(input) && isValidLength(input, length) && hasNoOverlap(input) && hasNoZero(input);
     }
 }
