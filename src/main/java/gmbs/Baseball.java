@@ -4,27 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Baseball {
-    private final ArrayList<Integer> inputNumbers = new ArrayList<>();
-    private final ArrayList<Integer> randomNumbers = new ArrayList<>();
     private final UserInput userInput = new UserInput();
     private final RandomNumberGenerator random = new RandomNumberGenerator();
 
-    public void setRandomNumbers() {
-        randomNumbers.addAll(random.getRandomNumbers(3));
-    }
-
-    public void showRandomNumbers() {
-        for (int i = 0; i < Constant.inputLength; i++) {
-            System.out.println(randomNumbers.get(i));
-        }
-    }
-
-    public void setInputNumbers() {
-        Display.showNumberInputDisplay(Constant.inputLength);
-        if (!inputNumbers.isEmpty()) {
-            inputNumbers.clear();
-        }
-        inputNumbers.addAll(userInput.getNumbers());
+    public void showRandomNumbers(List<Integer> randomNumbers) {
+        System.out.println(randomNumbers);
     }
 
     public int strikeCount(List<Integer> randomNumbers, List<Integer> userInput) {
@@ -51,19 +35,13 @@ public class Baseball {
         return strikeCount == Constant.inputLength;
     }
 
-    private void resetAll() {
-        inputNumbers.clear();
-        randomNumbers.clear();
-    }
-
     public void playOneGame() {
         int strikes;
         int balls;
-        resetAll();
-        setRandomNumbers();
-        showRandomNumbers();
+        List<Integer> randomNumbers = new ArrayList<>(random.getRandomNumbers(Constant.inputLength));
+        showRandomNumbers(randomNumbers);
         do {
-            setInputNumbers();
+            List<Integer> inputNumbers = new ArrayList<>(userInput.getNumbers());
             strikes = strikeCount(randomNumbers, inputNumbers);
             balls = ballCount(randomNumbers, inputNumbers);
             Display.showStrikeBallCounts(strikes, balls);
