@@ -39,4 +39,11 @@ class InputValidatorTest {
     void isNeither(Object a, Object b, Object input, boolean expect) {
         assertThat(validator.isNeither(a, b, input)).isEqualTo(expect);
     }
+
+    @ParameterizedTest
+    @DisplayName("0을 포함하지 않는지 확인한다")
+    @CsvSource(value = {"123, true", "234, true", "0, false", "1230, false"})
+    void hasNoZero(String input, boolean expect) {
+        assertThat(validator.hasNoZero(input)).isEqualTo(expect);
+    }
 }
