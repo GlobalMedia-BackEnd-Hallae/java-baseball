@@ -13,7 +13,7 @@ public class Baseball {
 
     public int strikeCount(List<Integer> randomNumbers, List<Integer> userInput) {
         int strikeCount = 0;
-        for (int i = 0; i < Constant.inputLength; i++) {
+        for (int i = 0; i < userInput.size(); i++) {
             if (userInput.get(i).equals(randomNumbers.get(i))) {
                 strikeCount++;
             }
@@ -23,7 +23,7 @@ public class Baseball {
 
     public int ballCount(List<Integer> randomNumbers, List<Integer> userInput) {
         int ballCount = 0;
-        for (int i = 0; i < Constant.inputLength; i++) {
+        for (int i = 0; i < userInput.size(); i++) {
             if (randomNumbers.contains(userInput.get(i)) && !userInput.get(i).equals(randomNumbers.get(i))) {
                 ballCount++;
             }
@@ -31,7 +31,7 @@ public class Baseball {
         return ballCount;
     }
 
-    public boolean isStrikeOut(int strikeCount) {
+    private boolean isStrikeOut(int strikeCount) {
         return strikeCount == Constant.inputLength;
     }
 
