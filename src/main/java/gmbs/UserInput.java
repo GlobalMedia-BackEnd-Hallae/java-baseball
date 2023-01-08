@@ -53,7 +53,7 @@ public class UserInput {
         ArrayList<Integer> returnNumbers = new ArrayList<>();
         String tempStringInput = getInput();
         while (!isValidNumberInput(tempStringInput, Constant.inputLength)) {
-            Display.wrongInputDisplay();
+            Display.showWrongInputDisplay();
             tempStringInput = getInput();
         }
         String[] temp = tempStringInput.split("");
@@ -65,10 +65,10 @@ public class UserInput {
 
 
     public boolean getYesNo() {
-        Display.playAgainDisplay(YES_VALUE, NO_VALUE);
+        Display.showPlayAgain(YES_VALUE, NO_VALUE);
         String userInput = getInput();
         while (isWrongInput(userInput)) {
-            Display.wrongInputDisplay();
+            Display.showWrongInputDisplay();
             userInput = getInput();
         }
         return isYes(userInput);
