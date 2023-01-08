@@ -10,8 +10,12 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'com.mikemybytes:junit5-formatted-source:0.1.0'
+    implementation 'com.mikemybytes:junit5-formatted-source-tests:0.1.0'
+    implementation 'com.mikemybytes:junit5-formatted-source-parent:0.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    testImplementation 'org.assertj:assertj-core:3.23.1'
 }
 
 test {
