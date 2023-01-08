@@ -19,7 +19,6 @@ public class BaseballGameService {
     public BaseballGameService(final InputConsole inputConsole) {
         this.inputConsole = inputConsole;
         List<Integer> computerRandomNumber = new ComputerRandomNumber().generate();
-        System.out.println(computerRandomNumber);
         this.ruleChecker = new BaseballRuleChecker(computerRandomNumber);
     }
 
