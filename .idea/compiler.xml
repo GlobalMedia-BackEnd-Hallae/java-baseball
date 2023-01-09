@@ -5,7 +5,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="java-baseball-gmbs.main" options="--add-exports java.base/sun.util.locale=ALL-UNNAMED" />
+      <module name="java-baseball-gmbs.main" options="--add-exports java.base/sun.util.locale=ALL-UNNAMED --add-exports java.base/sun.net.www.http=ALL-UNNAMED" />
     </option>
   </component>
 </project>
