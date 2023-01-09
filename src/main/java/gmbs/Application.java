@@ -18,7 +18,7 @@ public class Application {
                 result = judge.GameJudgement(computer, input.playerNumber());
                 System.out.println(result);
             }
-            again = playagain.isPlayAgain();
+            again = playagain.PlayAgain();
         }
     }
 }
