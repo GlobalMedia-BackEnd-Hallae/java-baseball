@@ -53,9 +53,6 @@ public class Compare {
             }
         }
 
-        System.out.println(result.getBallCount());
-        System.out.println(result.getStrikeCount());
-
         return Integer.toString(result.getBallCount()) + Integer.toString(result.getStrikeCount());
     }
 }
