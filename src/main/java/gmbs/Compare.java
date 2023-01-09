@@ -1,38 +1,26 @@
 package gmbs;
 
+import java.util.HashSet;
+
 public class Compare {
+    private Point point = new Point();
+    private Result result = new Result();
+    private HashSet<String> numberCount = new HashSet<>();
+
     // Strike 여부를 판별해주는 함수
     private boolean resultIsStrike(String randomNumber, String userNumber, int index) {
-        if ((randomNumber.charAt(0) == userNumber.charAt(index)) && index == 0) {
-            return true;
-        }
-
-        if (randomNumber.charAt(1) == userNumber.charAt(index) && index == 1) {
-            return true;
-        }
-
-        if (randomNumber.charAt(2) == userNumber.charAt(index) && index == 2) {
-            return true;
-        }
-
-        return false;
+        return randomNumber.charAt(index) == userNumber.charAt(index);
     }
 
     // Ball 여부를 판별해주는 함수
     private boolean resultIsBall(String randomNumber, String userNumber, int index) {
-        if ((randomNumber.charAt(0) == userNumber.charAt(index))) {
-            return true;
+        String targetNumber = String.valueOf(userNumber.charAt(index));
+
+        for (int order = 0; order < randomNumber.length(); order++) {
+            numberCount.add(String.valueOf(randomNumber.charAt(order)));
         }
 
-        if ((randomNumber.charAt(1) == userNumber.charAt(index))) {
-            return true;
-        }
-
-        if ((randomNumber.charAt(2) == userNumber.charAt(index))) {
-            return true;
-        }
-
-        return false;
+        return numberCount.contains(targetNumber);
     }
 
     // 수를 비교해주는 함수
@@ -50,16 +38,24 @@ public class Compare {
     }
 
     public String checkResult(String randomNumber, String userNumber) {
-        Point point = new Point();
-        int ballCount = 0;
-        int strikeCount = 0;
+        result.setBallCount(0);
+        result.setStrikeCount(0);
 
         for (int index = 0; index < Constant.NUMBER_LENGTH; index++) {
-            int result = compareNumber(randomNumber, userNumber, index);
-            ballCount += point.checkBall(result);
-            strikeCount += point.checkStrike(result);
+            int outcome = compareNumber(randomNumber, userNumber, index);
+
+            if (point.checkBall(outcome)) {
+                result.addBall();
+            }
+
+            if (point.checkStrike(outcome)) {
+                result.addStrike();
+            }
         }
 
-        return Integer.toString(ballCount) + Integer.toString(strikeCount);
+        System.out.println(result.getBallCount());
+        System.out.println(result.getStrikeCount());
+
+        return Integer.toString(result.getBallCount()) + Integer.toString(result.getStrikeCount());
     }
 }
