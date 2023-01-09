@@ -12,16 +12,16 @@ public class Application {
      */
 
     public static void main(String[] args) {
-        Create create = new Create();
+        CreateNumber create = new CreateNumber();
         Game game = new Game();
-        Again again = new Again();
-        int recursion = Constant.CONTINUE;
-        String randomNumber;
+        ReturnGame returnGame = new ReturnGame();
+        int recursion;
 
-        while (recursion == Constant.CONTINUE) {
-            randomNumber = create.createRandomNumber();
+        do {
+            String randomNumber = create.createRandomNumber();
+            System.out.println(randomNumber);
             game.numberBaseBall(randomNumber);
-            recursion = again.returnGame();
-        }
+            recursion = returnGame.returnGame();
+        } while (recursion == Constant.CONTINUE);
     }
 }
