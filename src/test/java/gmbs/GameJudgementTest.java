@@ -4,12 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class GameJudgementTest {
+public class GameJudgementTest {
     Compare compare;
     GameJudgement gameJudgement;
 
@@ -21,26 +20,45 @@ class GameJudgementTest {
 
     @Test
     @DisplayName("3볼 테스트")
-    void BallCheck() {
-        assertThat("3볼").isEqualTo(gameJudgement.GameJudgement(Arrays.asList(1, 2, 3), Arrays.asList(3, 1, 2)));
+    void ball() {
+        List<Integer> computer = List.of(1, 2, 3);
+        List<Integer> player = List.of(3, 1, 2);
+        String result = "3볼";
+
+        assertThat(gameJudgement.GameJudgement(computer, player))
+                .isEqualTo(result);
     }
 
     @Test
     @DisplayName("3스트라이크 테스트")
     void StrikeCheck() {
-        assertThat("3스트라이크").isEqualTo(gameJudgement.GameJudgement(Arrays.asList(4, 5, 6), Arrays.asList(4, 5, 6)));
+        List<Integer> computer = List.of(4, 5, 6);
+        List<Integer> player = List.of(4, 5, 6);
+        String result = "3스트라이크";
+
+        assertThat(gameJudgement.GameJudgement(computer, player))
+                .isEqualTo(result);
     }
 
     @Test
     @DisplayName("2볼 1스트라이크 테스트")
     void IndexCheck() {
-        assertThat("2볼 1스트라이크").isEqualTo(gameJudgement.GameJudgement(Arrays.asList(7, 8, 9), Arrays.asList(7, 9, 8)));
-    }
+        List<Integer> computer = List.of(7, 8, 9);
+        List<Integer> player = List.of(7, 9, 8);
+        String result = "2볼 1스트라이크";
 
+        assertThat(gameJudgement.GameJudgement(computer, player))
+                .isEqualTo(result);
+    }
 
     @Test
     @DisplayName("낫싱테스트")
     void NothingCheck() {
-        assertThat("낫싱").isEqualTo(gameJudgement.GameJudgement(Arrays.asList(4, 5, 6), Arrays.asList(7, 8, 9)));
+        List<Integer> computer = List.of(4, 5, 6);
+        List<Integer> player = List.of(7, 9, 8);
+        String result = "낫싱";
+
+        assertThat(gameJudgement.GameJudgement(computer, player))
+                .isEqualTo(result);
     }
 }

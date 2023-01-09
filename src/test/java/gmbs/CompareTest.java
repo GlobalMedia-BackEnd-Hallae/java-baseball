@@ -4,12 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class CompareTest {
+public class CompareTest {
     Compare compare;
 
     @BeforeEach
@@ -18,14 +17,24 @@ class CompareTest {
     }
 
     @Test
-    @DisplayName("숫자확인 테스트")
+    @DisplayName("숫자 3개를 가진 리스트를 두 개 입력받아서 서로 같은 숫자가 몇 개 있는지 확인한다")
     void count() {
-        assertThat(3).isEqualTo(compare.Count(Arrays.asList(1, 2, 3), Arrays.asList(3, 1, 2)));
+        List<Integer> computer = List.of(1, 2, 3);
+        List<Integer> player = List.of(1, 2, 3);
+        int result = 3;
+
+        assertThat(compare.Count(computer, player))
+                .isEqualTo(result);
     }
 
     @Test
-    @DisplayName("스트라이크 수 테스트")
+    @DisplayName("숫자 3개를 가진 리스트를 두 개 입력받아서 몇 개의 스트라이크가 있는지 확인한다")
     void strike() {
-        assertThat(1).isEqualTo(compare.countStrike(Arrays.asList(4, 5, 6), Arrays.asList(6, 5, 4)));
+        List<Integer> computer = List.of(4, 5, 6);
+        List<Integer> player = List.of(6, 5, 4);
+        int result = 1;
+
+        assertThat(compare.countStrike(computer, player))
+                .isEqualTo(result);
     }
 }
