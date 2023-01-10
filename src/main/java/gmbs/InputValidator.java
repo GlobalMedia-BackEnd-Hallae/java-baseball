@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class InputValidator {
-    public boolean isNeither(Object a, Object b, Object input) {
+    private boolean isNeither(Object a, Object b, Object input) {
         return !(input.equals(a) || input.equals(b));
     }
 
-    public boolean isNaturalNumber(String input) {
+    private boolean isNaturalNumber(String input) {
         try {
             if (Integer.parseInt(input) > 0) {
                 return true;
@@ -20,16 +20,16 @@ public class InputValidator {
         return false;
     }
 
-    public boolean isValidLength(String input, int length) {
+    private boolean isValidLength(String input, int length) {
         return input.length() == length;
     }
 
-    public boolean hasNoOverlap(String input) {
+    private boolean hasNoOverlap(String input) {
         Set<String> inputChecker = new HashSet<>(Arrays.asList(input.split("")));
         return inputChecker.size() == input.length();
     }
 
-    public boolean hasNoZero(String input) {
+    private boolean hasNoZero(String input) {
         return !input.contains("0");
     }
 
