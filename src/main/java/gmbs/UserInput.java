@@ -11,8 +11,6 @@ public class UserInput {
     private final InputValidator validator = new InputValidator();
     private final Display display = new Display();
 
-
-
     private String getInput() {
         return scan.nextLine();
     }
