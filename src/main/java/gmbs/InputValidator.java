@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class InputValidator {
-    private boolean isNeither(Object a, Object b, Object input) {
+    public boolean isNeither(Object a, Object b, Object input) {
         return !(input.equals(a) || input.equals(b));
     }
 
